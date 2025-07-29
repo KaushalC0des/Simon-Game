@@ -30,3 +30,9 @@ body {
 .flash {
     background-color: white;
 }
+.high-score {
+    color: goldenrod;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 1.2rem;
+}
