@@ -2,7 +2,8 @@ let gameSeq = [];
 let userSeq = [];
 
 let highScore = localStorage.getItem("highScore") || 0;
-document.querySelector(".high-score").innerText =  `High Score: ${highScore}`;
+document.querySelector(".high-score").innerText = `High Score: ${highScore}`;
+const start = document.getElementById("start")
 
 let btns = ["yellow", "red", "purple", "green"];
 let h2 = document.querySelector("h2");
@@ -10,13 +11,15 @@ let h2 = document.querySelector("h2");
 let started = false;
 let level = 0;
 
-document.addEventListener("keypress", function() {
-    console.log("game started");
-    started = true;
-    
-    levelUp();
-})
+start.addEventListener("click", startGame);
 
+function startGame() {
+  if (started) return;           // prevent double start
+  started = true;
+  start.disabled = true;      // lock button while playing
+  h2.innerText = "Level 0";
+  levelUp();
+}
 function btnFlash(btn) {
     btn.classList.add("flash");
     setTimeout(function (){
@@ -27,7 +30,7 @@ function btnFlash(btn) {
 function levelUp() {
     userSeq = [];
     level++;
-    h2.innerText = `level ${level}`;
+    h2.innerText =` Level ${level}`;
 
     let ranIdx = Math.floor(Math.random() * 4);
     let randColor = btns[ranIdx];
@@ -71,7 +74,7 @@ function btnPress() {
 }
 
 let allBtns = document.querySelectorAll(".btn");
-for(btn of allBtns){
+for(let btn of allBtns){
     btn.addEventListener("click", btnPress);
 }
 
@@ -81,4 +84,5 @@ function reset() {
     gameSeq = [];
     userSeq = [];
     level = 0;
+    start.disabled = false; // Re-enable the start button
 }
